@@ -1,0 +1,19 @@
+{
+  "name": "homebridge-websocket",
+  "version": "1.0.0",
+  "description": "Forwards events from HomeBridge to your device to quickly build accessories without worrying about communication.",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bene/HomeBridge-WebSocket.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bene/HomeBridge-WebSocket/issues"
+  },
+  "homepage": "https://github.com/bene/HomeBridge-WebSocket#readme"
+}
