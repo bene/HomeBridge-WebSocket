@@ -43,3 +43,7 @@ client.subscribe("SOME_UNIQUE_ID", "SOME_RANDOM_TOKEN", (msg) => {
   // Set GPIO
 });
 ```
+
+## Supported service types
+
+See [here](./SUPPORT.md) which service types are supported.
