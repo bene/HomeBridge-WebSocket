@@ -37,9 +37,9 @@ To receive events on your client (e.g. Raspberry Pi) use the TypeScript SDK.
 ```typescript
 import Client from "./client.ts";
 
-const client = new Client("https://home.bene.dev");
+const client = new Client("wss://home.bene.dev");
 
-client.subscribe("SOME_UNIQUE_ID", "SOME_RANDOM_TOKEN", (msg) => {
+client.subscribe("Switch", "SOME_UNIQUE_ID", "SOME_RANDOM_TOKEN", (msg) => {
   // Set GPIO
 });
 ```
