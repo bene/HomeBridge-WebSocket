@@ -1,9 +1,23 @@
-## 1. Register an accessory in your plugin config:
+# HomeBridge-WebSocket
+
+Forwards events from HomeBridge to your device to quickly build accessories
+without worrying about communication.
+
+## Usage
+
+To get started the `HomeBridge-WebSocket` server must be hosted. You can host it
+in the cloud for simplicity or locally for shorter response times and higher
+privacy.
+
+### Register an accessory in your plugin config
+
+After hosting s server and installing the plugin in HomeBridge, add an accessory
+to the config.
 
 ```json
 {
-  "host": "home.bene.dev",
-  "token": "",
+  "host": "wss://home.bene.dev",
+  "token": "SERVER_TOKEN",
   "accessories": [
     {
       "service": "Switch",
@@ -16,7 +30,9 @@
 }
 ```
 
-## 2. Implement a client
+### Implement a client
+
+To receive events on your client (e.g. Raspberry Pi) use the TypeScript SDK.
 
 ```typescript
 import Client from "./client.ts";
