@@ -26,7 +26,6 @@ function useWebSocketServer(server: Server) {
       }
 
       addAccessoryConnection(accessoryId, ws);
-      // wss.emit("connection", ws, req)
     });
   });
 }

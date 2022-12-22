@@ -1,4 +1,5 @@
 import { Evt } from "evt";
+import { Router } from "express";
 import { WebSocket } from "ws";
 import { v4 as uuid } from "uuid";
 
@@ -13,6 +14,11 @@ const clients: Record<string, {
   webSocket: WebSocket;
   stateEvt: Evt<GetStateResponse>;
 }> = {};
+
+const AccessoryHandlerRouter = Router();
+AccessoryHandlerRouter.get("/", (_req, res) => {
+  res.json(Object.keys(clients));
+});
 
 function getAccessoryState(
   accessoryId: string,
@@ -91,4 +97,9 @@ function addAccessoryConnection(accessoryId: string, ws: WebSocket) {
   });
 }
 
-export { addAccessoryConnection, getAccessoryState, setAccessoryState };
+export {
+  AccessoryHandlerRouter,
+  addAccessoryConnection,
+  getAccessoryState,
+  setAccessoryState,
+};
