@@ -25,6 +25,6 @@ jobs:
         run: npm -w "packages/sdk" run build
 
       - name: Publish
-        run: npm -w "packages/sdk" publish
+        run: npm -w "packages/sdk" publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
