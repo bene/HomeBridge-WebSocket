@@ -16,15 +16,15 @@ to the config.
 
 ```json
 {
-  "host": "wss://home.bene.dev",
-  "token": "SERVER_TOKEN",
+  "apiUrl": "wss://home.bene.dev",
+  "name": "HomeBridgeWebSocket",
+  "platform": "HomeBridgeWebSocket",
   "accessories": [
     {
       "service": "Switch",
-      "accessory": "ExampleSwitch",
-      "name": "PiSwitch",
-      "id:": "SOME_UNIQUE_ID",
-      "token": "SOME_RANDOM_TOKEN"
+      "id": "Switch-000",
+      "token": "SOME_RANDOM_TOKEN",
+      "name": "PiSwitch"
     }
   ]
 }
@@ -35,13 +35,31 @@ to the config.
 To receive events on your client (e.g. Raspberry Pi) use the TypeScript SDK.
 
 ```typescript
-import Client from "./client.ts";
+import Client from "@homebridge-ws/sdk";
+import { SwitchState } from "@homebridge-ws/types";
 
 const client = new Client("wss://home.bene.dev");
 
-client.subscribe("Switch", "SOME_UNIQUE_ID", "SOME_RANDOM_TOKEN", (msg) => {
-  // Set GPIO
-});
+let isOn = true;
+
+function onSetState(state: SwitchState) {
+  console.log("SetState", state);
+  isOn = state.on;
+  // Example: Set GPIO on Raspberry Pi
+}
+
+function onGetState(): SwitchState {
+  console.log("GetState", { on: isOn });
+  return { on: isOn };
+}
+
+client.subscribe(
+  "Switch",
+  "Switch-000",
+  "SOME_RANDOM_TOKEN",
+  onSetState,
+  onGetState,
+);
 ```
 
 ## Supported service types
