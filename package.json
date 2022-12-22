@@ -1,5 +1,5 @@
 {
-  "name": "homebridge-websocket",
+  "name": "@homebridge-ws/mono",
   "version": "1.1.0",
   "description": "Forwards events from HomeBridge to your device to quickly build accessories without worrying about communication.",
   "workspaces": [
