@@ -28,6 +28,6 @@ jobs:
         run: npm -w "packages/plugin" run build
 
       - name: Publish
-        run: npm -w "packages/plugin" publish --access public
+        run: npm -w "packages/plugin" publish --tag=dev --access=public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
