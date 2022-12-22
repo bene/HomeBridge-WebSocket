@@ -1,7 +1,7 @@
 import { Factory } from "./factory";
-import { ServiceMessage, ServiceType } from "./services/unions";
-import { SwitchMessage } from "./services/Switch";
-import { OutletMessage } from "./services/Outlet";
+import { ServiceType } from "./services/unions";
+import { SwitchState } from "./services/Switch";
+import { OutletState } from "./services/Outlet";
 
 class Logger {
   info(...data: any[]) {
@@ -27,26 +27,29 @@ class Client {
     serviceType: "Switch",
     accessory: string,
     token: string,
-    onMessage: (msg: SwitchMessage) => void,
+    setState: (msg: SwitchState) => void,
+    getState: () => SwitchState,
   ): void;
   subscribe(
     serviceType: "Outlet",
     accessory: string,
     token: string,
-    onMessage: (msg: OutletMessage) => void,
+    setState: (msg: OutletState) => void,
+    getState: () => OutletState,
   ): void;
   subscribe(
     serviceType: ServiceType,
     accessory: string,
     token: string,
-    onMessage: (msg: ServiceMessage) => void,
+    setState: ((msg: SwitchState) => void) | ((msg: OutletState) => void),
+    getState: (() => SwitchState) | (() => OutletState),
   ): void {
     const parseRaw = this._factory.get(serviceType);
 
     this._ws.addEventListener("message", (e) => {
       const raw = JSON.parse(e.data);
       const parsed = parseRaw(raw);
-      onMessage(parsed);
+      setState(parsed);
     });
   }
 }

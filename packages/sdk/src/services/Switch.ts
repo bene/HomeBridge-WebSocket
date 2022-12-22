@@ -1,13 +1,13 @@
 import { RawMessage } from "./types";
 
-type SwitchMessage = {
-  propA: string;
+type SwitchState = {
+  value: boolean;
 };
 
-function parseToSwitchMessage(raw: RawMessage): SwitchMessage {
+function parseToSwitchMessage(raw: RawMessage): SwitchState {
   return {
-    propA: "",
+    value: true,
   };
 }
 
-export { parseToSwitchMessage, SwitchMessage };
+export { parseToSwitchMessage, SwitchState };

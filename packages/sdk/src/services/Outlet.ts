@@ -1,13 +1,13 @@
 import { RawMessage } from "./types";
 
-type OutletMessage = {
+type OutletState = {
   propB: string;
 };
 
-function parseToOutletMessage(raw: RawMessage): OutletMessage {
+function parseToOutletMessage(raw: RawMessage): OutletState {
   return {
     propB: "",
   };
 }
 
-export { OutletMessage, parseToOutletMessage };
+export { OutletState, parseToOutletMessage };
