@@ -1,4 +1,4 @@
-name: Build and publish sdk package
+name: Build and publish types package
 
 on:
   push:
@@ -19,18 +19,15 @@ jobs:
           registry-url: "https://registry.npmjs.org"
 
       - name: Install dependencies
-        run: npm ci
-
-      - name: Build types package
-        run: npm -w "packages/types" run build
+        run: npm -w "packages/types" ci
 
       - name: Set package version
         run: npm version -ws --commit-hooks=false --git-tag-version=false "$(grep version package.json | awk -F \" '{print $4}')-dev.$(git rev-parse --short HEAD)"
 
       - name: Build
-        run: npm -w "packages/sdk" run build
+        run: npm -w "packages/types" run build
 
       - name: Publish
-        run: npm -w "packages/sdk" publish --tag=dev --access=public
+        run: npm -w "packages/types" publish --tag=dev --access=public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
