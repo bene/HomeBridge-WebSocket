@@ -22,7 +22,7 @@ jobs:
         run: npm -w "packages/sdk" ci
 
       - name: Set package version
-        run: npm version --commit-hooks=false --git-tag-version=false "$(grep version package.json | awk -F \" '{print $4}')-dev.$(git rev-parse --short HEAD)"
+        run: npm version -ws --commit-hooks=false --git-tag-version=false "$(grep version package.json | awk -F \" '{print $4}')-dev.$(git rev-parse --short HEAD)"
 
       - name: Build
         run: npm -w "packages/sdk" run build
