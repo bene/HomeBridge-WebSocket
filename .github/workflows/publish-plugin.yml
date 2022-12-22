@@ -21,6 +21,9 @@ jobs:
       - name: Install dependencies
         run: npm -w "packages/plugin" ci
 
+      - name: Set package version
+        run: npm version --commit-hooks=false --git-tag-version=false "$(grep version package.json | awk -F \" '{print $4}')-dev.$(git rev-parse --short HEAD)"
+
       - name: Build
         run: npm -w "packages/plugin" run build
 
