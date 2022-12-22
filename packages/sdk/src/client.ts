@@ -60,8 +60,8 @@ class Client {
       `${this._apiUrl}?accessory=${accessory}&token=${token}`,
     );
 
-    ws.on("message", (raw) => {
-      const data = JSON.parse(raw as any);
+    ws.on("message", (raw: any) => {
+      const data = JSON.parse(raw);
 
       if (data._type === "GetStateRequest") {
         const req: GetStateRequest = data;

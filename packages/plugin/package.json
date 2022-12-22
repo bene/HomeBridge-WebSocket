@@ -1,5 +1,5 @@
 {
-  "name": "homebridge-ws-plugin",
+  "name": "@homebridge-ws/homebridge-ws-plugin",
   "displayName": "HomeBridge WebSocket",
   "version": "1.0.0",
   "main": "./dist/index.js",
