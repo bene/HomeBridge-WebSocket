@@ -6,13 +6,21 @@ import {
   RawAccessoryState,
   SetStateBridgeRequest,
 } from "@homebridge-ws/types";
+import { Logging } from "homebridge";
 
 class Handler {
   private _ws: WebSocket;
   private readonly _accessoryId: string;
+  private readonly _log: Logging;
 
-  constructor(apiUrl: string, accessoryId: string, token: string) {
+  constructor(
+    apiUrl: string,
+    accessoryId: string,
+    token: string,
+    log: Logging,
+  ) {
     this._accessoryId = accessoryId;
+    this._log = log;
     this._ws = new WebSocket(`${apiUrl}/bridge`);
   }
 

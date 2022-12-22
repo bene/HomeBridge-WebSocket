@@ -28,9 +28,7 @@ async function onSetStateRequest(req: SetStateBridgeRequest) {
 
 async function onGetStateRequest(ws: WebSocket, req: GetStateBridgeRequest) {
   const { id, accessoryId } = req;
-  console.log("onGetStateRequest", accessoryId);
   const state = await AccessoryHandler.getAccessoryState(accessoryId);
-  console.log("state", state);
 
   const res: GetStateBridgeResponse = {
     _type: "GetStateResponse",

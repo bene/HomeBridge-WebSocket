@@ -30,10 +30,10 @@ export class Switch implements AccessoryPlugin {
     token: string,
   ) {
     this.log = log;
-    this.name = accessoryId;
-    this.handler = new Handler(apiUrl, accessoryId, token);
+    this.name = name;
+    this.handler = new Handler(apiUrl, accessoryId, token, log);
 
-    this.switchService = new hap.Service.Switch(accessoryId);
+    this.switchService = new hap.Service.Switch(name);
     this.switchService.getCharacteristic(hap.Characteristic.On)
       .on(
         CharacteristicEventTypes.GET,
@@ -55,8 +55,8 @@ export class Switch implements AccessoryPlugin {
       );
 
     this.informationService = new hap.Service.AccessoryInformation()
-      .setCharacteristic(hap.Characteristic.Manufacturer, "Custom Manufacturer")
-      .setCharacteristic(hap.Characteristic.Model, "Custom Model");
+      .setCharacteristic(hap.Characteristic.Identifier, accessoryId)
+      .setCharacteristic(hap.Characteristic.Model, "WebSocket Switch");
   }
 
   getServices(): Service[] {

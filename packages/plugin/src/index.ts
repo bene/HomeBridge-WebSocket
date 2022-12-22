@@ -14,6 +14,11 @@ class WebSocketPlatform implements StaticPlatformPlugin {
   private readonly _accessories: AccessoryPlugin[] = [];
 
   constructor(log: Logging, config: PlatformConfig, api: API) {
+    // Check if WebSocketServer should be started
+    if (!config.noServer) {
+      log.info("Starting WebSocketServer...");
+    }
+
     if (config.accessories && Array.isArray(config.accessories)) {
       for (const accessoryConfig of config.accessories) {
         if (accessoryConfig.service === "Switch") {
@@ -24,7 +29,7 @@ class WebSocketPlatform implements StaticPlatformPlugin {
               accessoryConfig.name,
               config.apiUrl,
               accessoryConfig.id,
-              config.token,
+              accessoryConfig.token,
             ),
           );
         }

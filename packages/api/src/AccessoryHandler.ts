@@ -4,13 +4,14 @@ import { v4 as uuid } from "uuid";
 
 import {
   GetStateRequest,
+  GetStateResponse,
   RawAccessoryState,
   SetStateRequest,
 } from "@homebridge-ws/types";
 
 const clients: Record<string, {
   webSocket: WebSocket;
-  stateEvt: Evt<RawAccessoryState>;
+  stateEvt: Evt<GetStateResponse>;
 }> = {};
 
 function getAccessoryState(
@@ -25,8 +26,8 @@ function getAccessoryState(
     const { webSocket, stateEvt } = clients[accessoryId];
 
     // Resolve when receiving state
-    stateEvt.attachOnce((state) => {
-      resolve(state);
+    stateEvt.attachOnce((e) => {
+      resolve(e.state);
     });
 
     // Send state request
@@ -72,7 +73,7 @@ function addAccessoryConnection(accessoryId: string, ws: WebSocket) {
   // Save new connection
   clients[accessoryId] = {
     webSocket: ws,
-    stateEvt: Evt.create<RawAccessoryState>(),
+    stateEvt: Evt.create<GetStateResponse>(),
   };
 
   // Handle messages
@@ -83,7 +84,7 @@ function addAccessoryConnection(accessoryId: string, ws: WebSocket) {
       return;
     }
 
-    const state: RawAccessoryState = data;
+    const state: GetStateResponse = data;
     if (clients[accessoryId]) {
       clients[accessoryId].stateEvt.post(state);
     }
