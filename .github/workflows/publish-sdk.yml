@@ -1,0 +1,30 @@
+name: Build and publish sdk package
+
+on:
+  push:
+    branches:
+      - "main"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup npm
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18.x"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Install dependencies
+        run: npm -w "packages/sdk" ci
+
+      - name: Build
+        run: npm -w "packages/sdk" run build
+
+      - name: Publish
+        run: npm -w "packages/sdk" publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
