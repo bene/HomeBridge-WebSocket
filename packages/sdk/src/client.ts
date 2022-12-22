@@ -1,11 +1,11 @@
 import { WebSocket } from "ws";
 
-import { OutletState } from "@homebridge-ws/types/services/Outlet";
-import { SwitchState } from "@homebridge-ws/types/services/Switch";
 import {
   GetStateRequest,
   GetStateResponse,
+  OutletState,
   SetStateRequest,
+  SwitchState,
 } from "@homebridge-ws/types";
 
 import { Factory } from "./factory";

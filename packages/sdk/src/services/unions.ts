@@ -1,5 +1,4 @@
-import { OutletState } from "@homebridge-ws/types/services/Outlet";
-import { SwitchState } from "@homebridge-ws/types/services/Switch";
+import { OutletState, SwitchState } from "@homebridge-ws/types";
 
 type ServiceType = "Switch" | "Outlet";
 type ServiceState = SwitchState | OutletState;

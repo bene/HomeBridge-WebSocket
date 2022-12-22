@@ -1,5 +1,4 @@
-import { RawAccessoryState } from "@homebridge-ws/types";
-import { SwitchState } from "@homebridge-ws/types/services/Switch";
+import { RawAccessoryState, SwitchState } from "@homebridge-ws/types";
 
 function parseToSwitchMessage(raw: RawAccessoryState): SwitchState {
   return {

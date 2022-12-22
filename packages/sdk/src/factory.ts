@@ -1,4 +1,4 @@
-import { RawAccessoryState } from "@homebridge-ws/types/index";
+import { RawAccessoryState } from "@homebridge-ws/types";
 
 import { ServiceState, ServiceType } from "./services/unions";
 import { parseToOutletMessage } from "./services/Outlet";

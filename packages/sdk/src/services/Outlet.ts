@@ -1,5 +1,4 @@
-import { RawAccessoryState } from "@homebridge-ws/types";
-import { OutletState } from "@homebridge-ws/types/services/Outlet";
+import { OutletState, RawAccessoryState } from "@homebridge-ws/types";
 
 function parseToOutletMessage(raw: RawAccessoryState): OutletState {
   return {

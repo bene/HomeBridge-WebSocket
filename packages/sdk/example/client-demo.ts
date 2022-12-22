@@ -1,5 +1,6 @@
+import { SwitchState } from "@homebridge-ws/types";
+
 import Client from "../src/client";
-import { SwitchState } from "../src/services/Switch";
 
 const client = new Client("ws://localhost:3000", "TOKEN");
 const state: SwitchState = { value: false };

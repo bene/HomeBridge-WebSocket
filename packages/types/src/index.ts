@@ -21,6 +21,8 @@ type SetStateBridgeRequest = SetStateRequest & BridgeEvent;
 type GetStateBridgeRequest = GetStateRequest & BridgeEvent;
 type GetStateBridgeResponse = GetStateResponse & BridgeEvent;
 
+export type { SwitchState } from "./services/Switch";
+export type { OutletState } from "./services/Outlet";
 export type {
   GetStateBridgeRequest,
   GetStateBridgeResponse,
