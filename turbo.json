@@ -1,0 +1,26 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "pipeline": {
+    "@homebridge-ws/types#build": {
+      "outputs": [
+        "dist/**"
+      ]
+    },
+    "@homebridge-ws/homebridge-ws#build": {
+      "dependsOn": [
+        "@homebridge-ws/types#build"
+      ],
+      "outputs": [
+        "dist/**"
+      ]
+    },
+    "@homebridge-ws/sdk#build": {
+      "dependsOn": [
+        "@homebridge-ws/types#build"
+      ],
+      "outputs": [
+        "dist/**"
+      ]
+    }
+  }
+}

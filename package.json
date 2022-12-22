@@ -6,6 +6,7 @@
     "packages/*"
   ],
   "scripts": {
+    "build": "turbo run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/bene/HomeBridge-WebSocket/issues"
   },
-  "homepage": "https://github.com/bene/HomeBridge-WebSocket#readme"
+  "homepage": "https://github.com/bene/HomeBridge-WebSocket#readme",
+  "devDependencies": {
+    "turbo": "^1.6.3"
+  }
 }

@@ -40,7 +40,7 @@ export class Switch implements AccessoryPlugin {
         async (callback: CharacteristicGetCallback) => {
           const state = await this.handler.getState();
           if (state) {
-            callback(undefined, (state as SwitchState).value);
+            callback(undefined, (state as SwitchState).on);
           }
         },
       )
@@ -48,7 +48,7 @@ export class Switch implements AccessoryPlugin {
         CharacteristicEventTypes.SET,
         (value: CharacteristicValue, callback: CharacteristicSetCallback) => {
           const on = value as boolean;
-          const state: SwitchState = { value: on };
+          const state: SwitchState = { on };
           this.handler.setState(state);
           callback();
         },
