@@ -4,10 +4,10 @@
     "module": "commonjs",
     "declaration": true,
     "sourceMap": true,
-    "rootDir": "src",
-    "outDir": "dist",
+    "rootDir": "./src",
+    "outDir": "./dist",
     "strict": true,
     "esModuleInterop": true
   },
-  "include": ["src"]
+  "include": ["./src"]
 }
