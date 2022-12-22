@@ -1,3 +1,4 @@
+import { SwitchState } from "@homebridge-ws/types";
 import {
   AccessoryPlugin,
   CharacteristicEventTypes,
@@ -9,31 +10,46 @@ import {
   Service,
 } from "homebridge";
 
+import { Handler } from "../handler";
+
 export class Switch implements AccessoryPlugin {
   // This property must be existent
   name: string;
 
+  private readonly handler: Handler;
   private readonly log: Logging;
   private readonly switchService: Service;
   private readonly informationService: Service;
 
-  constructor(log: Logging, hap: HAP, name: string, apiUrl: string) {
+  constructor(
+    log: Logging,
+    hap: HAP,
+    name: string,
+    apiUrl: string,
+    accessoryId: string,
+    token: string,
+  ) {
     this.log = log;
-    this.name = name;
+    this.name = accessoryId;
+    this.handler = new Handler(apiUrl, accessoryId, token);
 
-    this.switchService = new hap.Service.Switch(name);
+    this.switchService = new hap.Service.Switch(accessoryId);
     this.switchService.getCharacteristic(hap.Characteristic.On)
       .on(
         CharacteristicEventTypes.GET,
-        (callback: CharacteristicGetCallback) => {
-          const on = true;
-          callback(undefined, on);
+        async (callback: CharacteristicGetCallback) => {
+          const state = await this.handler.getState();
+          if (state) {
+            callback(undefined, (state as SwitchState).value);
+          }
         },
       )
       .on(
         CharacteristicEventTypes.SET,
         (value: CharacteristicValue, callback: CharacteristicSetCallback) => {
           const on = value as boolean;
+          const state: SwitchState = { value: on };
+          this.handler.setState(state);
           callback();
         },
       );

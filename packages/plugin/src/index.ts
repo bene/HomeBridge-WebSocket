@@ -18,7 +18,14 @@ class WebSocketPlatform implements StaticPlatformPlugin {
       for (const accessoryConfig of config.accessories) {
         if (accessoryConfig.service === "Switch") {
           this._accessories.push(
-            new Switch(log, hap, accessoryConfig.name, config.apiUrl),
+            new Switch(
+              log,
+              hap,
+              accessoryConfig.name,
+              config.apiUrl,
+              accessoryConfig.id,
+              config.token,
+            ),
           );
         }
       }

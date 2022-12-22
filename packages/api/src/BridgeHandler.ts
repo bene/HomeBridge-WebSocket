@@ -8,6 +8,7 @@ import {
 } from "@homebridge-ws/types";
 
 function handleBridgeConnection(ws: WebSocket) {
+  console.log("Bridge connected");
   ws.on("message", async (e) => {
     const data = JSON.parse(e as any);
 
@@ -27,7 +28,7 @@ async function onSetStateRequest(req: SetStateBridgeRequest) {
 
 async function onGetStateRequest(ws: WebSocket, req: GetStateBridgeRequest) {
   const { id, accessoryId } = req;
-  console.log("onGetStateRequest");
+  console.log("onGetStateRequest", accessoryId);
   const state = await AccessoryHandler.getAccessoryState(accessoryId);
   console.log("state", state);
 

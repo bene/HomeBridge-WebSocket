@@ -1,5 +1,5 @@
 type SwitchState = {
-  value: boolean;
+  on: boolean;
 };
 
 export type { SwitchState };

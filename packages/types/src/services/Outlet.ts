@@ -1,5 +1,5 @@
 type OutletState = {
-  propB: string;
+  on: boolean;
 };
 
 export type { OutletState };

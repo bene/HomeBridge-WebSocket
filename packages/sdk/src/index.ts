@@ -21,13 +21,11 @@ class Client {
   private readonly _log: Logger;
   private readonly _factory: Factory;
   private readonly _apiUrl: string;
-  private readonly _apiToken: string;
 
-  constructor(apiUrl: string, apiToken: string) {
+  constructor(apiUrl: string) {
     this._log = new Logger();
     this._factory = new Factory();
     this._apiUrl = apiUrl;
-    this._apiToken = apiToken;
   }
 
   public get log() {
