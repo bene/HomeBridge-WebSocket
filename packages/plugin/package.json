@@ -1,8 +1,14 @@
 {
-  "name": "plugin",
+  "name": "homebridge-ws-plugin",
+  "displayName": "HomeBridge WebSocket",
   "version": "1.0.0",
   "main": "./dist/index.js",
+  "files": [
+    "./dist"
+  ],
   "scripts": {
+    "clean": "rm -rf ./dist",
+    "build": "npm run clean && tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {

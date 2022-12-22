@@ -1,7 +1,5 @@
 import {
-  AccessoryConfig,
   AccessoryPlugin,
-  API,
   CharacteristicEventTypes,
   CharacteristicGetCallback,
   CharacteristicSetCallback,
@@ -11,21 +9,22 @@ import {
   Service,
 } from "homebridge";
 
-let hap: HAP;
-
-class ExampleSwitch implements AccessoryPlugin {
+export class ExampleSwitch implements AccessoryPlugin {
   private readonly log: Logging;
-  private readonly name: string;
+
   private switchOn = false;
+
+  // This property must be existent!!
+  name: string;
 
   private readonly switchService: Service;
   private readonly informationService: Service;
 
-  constructor(log: Logging, config: AccessoryConfig, api: API) {
+  constructor(hap: HAP, log: Logging, name: string) {
     this.log = log;
-    this.name = config.name;
+    this.name = name;
 
-    this.switchService = new hap.Service.Switch(this.name);
+    this.switchService = new hap.Service.Switch(name);
     this.switchService.getCharacteristic(hap.Characteristic.On)
       .on(
         CharacteristicEventTypes.GET,
@@ -49,12 +48,24 @@ class ExampleSwitch implements AccessoryPlugin {
       );
 
     this.informationService = new hap.Service.AccessoryInformation()
-      .setCharacteristic(hap.Characteristic.Identifier, "2340-2343a")
-      .setCharacteristic(hap.Characteristic.SerialNumber, "2340-2343b")
-      .setCharacteristic(hap.Characteristic.Manufacturer, "Bene")
+      .setCharacteristic(hap.Characteristic.Manufacturer, "Custom Manufacturer")
       .setCharacteristic(hap.Characteristic.Model, "Custom Model");
+
+    log.info("Example switch '%s' created!", name);
   }
 
+  /*
+     * This method is optional to implement. It is called when HomeKit ask to identify the accessory.
+     * Typical this only ever happens at the pairing process.
+     */
+  identify(): void {
+    this.log("Identify!");
+  }
+
+  /*
+     * This method is called directly after creation of this instance.
+     * It should return all services which should be added to the accessory.
+     */
   getServices(): Service[] {
     return [
       this.informationService,
@@ -62,8 +73,3 @@ class ExampleSwitch implements AccessoryPlugin {
     ];
   }
 }
-
-export = (api: API) => {
-  hap = api.hap;
-  api.registerAccessory("ExampleSwitch", ExampleSwitch);
-};

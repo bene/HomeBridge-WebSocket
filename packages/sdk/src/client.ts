@@ -78,7 +78,9 @@ class Client {
       if (data._type === "SetStateRequest") {
         const req: SetStateRequest = data;
         const state = parseRawFn(req.state);
-        return void setState(state);
+
+        // TODO: Do this without using any
+        return void setState(state as any);
       }
     });
   }

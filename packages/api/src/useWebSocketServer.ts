@@ -28,24 +28,6 @@ function useWebSocketServer(server: Server) {
       addAccessoryConnection(accessoryId, ws);
       // wss.emit("connection", ws, req)
     });
-
-    // const params = new URLSearchParams(reqUrl.query!);
-    // const accessory = params.get("accessory")
-    // const token = params.get("token")
-
-    // const tokenWithPrefix = req.headers["authorization"] ?? ""
-
-    // if (tokenWithPrefix.startsWith("Bearer ")) {
-    //     const token = tokenWithPrefix.substring(7)
-    //     if (token === config.GATEWAY_TOKEN) {
-    //         return void wss.handleUpgrade(req, socket, head, (ws) => {
-    //             wss.emit("connection", ws, req)
-    //         })
-    //     }
-    // }
-
-    socket.write("HTTP/1.1 401 Unauthorized\r\n\r\n");
-    socket.destroy();
   });
 }
 
