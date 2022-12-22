@@ -1,7 +1,15 @@
+import { WebSocket } from "ws";
+
+import { OutletState } from "@homebridge-ws/types/services/Outlet";
+import { SwitchState } from "@homebridge-ws/types/services/Switch";
+import {
+  GetStateRequest,
+  GetStateResponse,
+  SetStateRequest,
+} from "@homebridge-ws/types";
+
 import { Factory } from "./factory";
 import { ServiceType } from "./services/unions";
-import { SwitchState } from "./services/Switch";
-import { OutletState } from "./services/Outlet";
 
 class Logger {
   info(...data: any[]) {
@@ -12,11 +20,14 @@ class Logger {
 class Client {
   private readonly _log: Logger;
   private readonly _factory: Factory;
-  private readonly _ws: WebSocket;
+  private readonly _apiUrl: string;
+  private readonly _apiToken: string;
 
   constructor(apiUrl: string, apiToken: string) {
     this._log = new Logger();
     this._factory = new Factory();
+    this._apiUrl = apiUrl;
+    this._apiToken = apiToken;
   }
 
   public get log() {
@@ -44,12 +55,31 @@ class Client {
     setState: ((msg: SwitchState) => void) | ((msg: OutletState) => void),
     getState: (() => SwitchState) | (() => OutletState),
   ): void {
-    const parseRaw = this._factory.get(serviceType);
+    const parseRawFn = this._factory.get(serviceType);
+    const ws = new WebSocket(
+      `${this._apiUrl}?accessory=${accessory}&token=${token}`,
+    );
 
-    this._ws.addEventListener("message", (e) => {
-      const raw = JSON.parse(e.data);
-      const parsed = parseRaw(raw);
-      setState(parsed);
+    ws.on("message", (raw) => {
+      const data = JSON.parse(raw as any);
+
+      if (data._type === "GetStateRequest") {
+        const req: GetStateRequest = data;
+        const state = getState();
+        const res: GetStateResponse = {
+          _type: "GetStateResponse",
+          id: req.id,
+          state,
+        };
+
+        return void ws.send(JSON.stringify(res));
+      }
+
+      if (data._type === "SetStateRequest") {
+        const req: SetStateRequest = data;
+        const state = parseRawFn(req.state);
+        return void setState(state);
+      }
     });
   }
 }

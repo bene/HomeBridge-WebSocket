@@ -1,10 +1,7 @@
-import { RawMessage } from "./types";
+import { RawAccessoryState } from "@homebridge-ws/types";
+import { SwitchState } from "@homebridge-ws/types/services/Switch";
 
-type SwitchState = {
-  value: boolean;
-};
-
-function parseToSwitchMessage(raw: RawMessage): SwitchState {
+function parseToSwitchMessage(raw: RawAccessoryState): SwitchState {
   return {
     value: true,
   };

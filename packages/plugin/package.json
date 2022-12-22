@@ -6,6 +6,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
+    "@homebridge-ws/types": "*",
     "@types/node": "^18.11.17",
     "homebridge": "^1.6.0",
     "typescript": "^4.9.4"

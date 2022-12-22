@@ -1,10 +1,7 @@
-import { RawMessage } from "./types";
+import { RawAccessoryState } from "@homebridge-ws/types";
+import { OutletState } from "@homebridge-ws/types/services/Outlet";
 
-type OutletState = {
-  propB: string;
-};
-
-function parseToOutletMessage(raw: RawMessage): OutletState {
+function parseToOutletMessage(raw: RawAccessoryState): OutletState {
   return {
     propB: "",
   };

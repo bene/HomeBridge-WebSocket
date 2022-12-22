@@ -1,12 +1,13 @@
-import { RawMessage } from "./services/types";
-import { ServiceMessage, ServiceType } from "./services/unions";
+import { RawAccessoryState } from "@homebridge-ws/types/index";
+
+import { ServiceState, ServiceType } from "./services/unions";
 import { parseToOutletMessage } from "./services/Outlet";
 import { parseToSwitchMessage } from "./services/Switch";
 
 class Factory {
   private readonly _entries: Record<
     ServiceType,
-    (raw: RawMessage) => ServiceMessage
+    (raw: RawAccessoryState) => ServiceState
   >;
 
   constructor() {
